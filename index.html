@@ -1,0 +1,994 @@
+<!doctype html>
+
+<html class="scroll-smooth" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>NexDrones | Tecnologia Aérea Inteligente</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#acedfb",
+              surface: "#faf8ff",
+              outline: "#717785",
+              "surface-variant": "#dce1ff",
+              "on-tertiary-fixed": "#00201e",
+              "on-secondary-container": "#266b78",
+              "on-tertiary-container": "#f3fffd",
+              "surface-container-high": "#e3e7ff",
+              "surface-container": "#ebedff",
+              "tertiary-container": "#00837c",
+              "primary-fixed": "#d1e4ff",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-highest": "#dce1ff",
+              "on-surface-variant": "#414753",
+              "on-primary-fixed": "#001d36",
+              "secondary-fixed-dim": "#90d1df",
+              "on-error": "#ffffff",
+              "on-secondary": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-surface": "#02174b",
+              "on-primary-container": "#fdfcff",
+              "error-container": "#ffdad6",
+              background: "#faf8ff",
+              "on-primary-fixed-variant": "#00497d",
+              "surface-bright": "#faf8ff",
+              secondary: "#206773",
+              "on-tertiary-fixed-variant": "#00504b",
+              "outline-variant": "#c1c6d5",
+              "surface-tint": "#1a619e",
+              "tertiary-fixed-dim": "#71d7cf",
+              "primary-container": "#3978b6",
+              "on-tertiary": "#ffffff",
+              tertiary: "#006762",
+              primary: "#155f9c",
+              "inverse-on-surface": "#eff0ff",
+              "tertiary-fixed": "#8ef4eb",
+              "primary-fixed-dim": "#9fcaff",
+              "surface-container-low": "#f3f2ff",
+              "secondary-container": "#a9eaf8",
+              "on-secondary-fixed": "#001f25",
+              "surface-dim": "#d0d8ff",
+              "on-secondary-fixed-variant": "#004e59",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#1c2d61",
+              error: "#ba1a1a",
+              "on-background": "#02174b",
+              "inverse-primary": "#9fcaff",
+              cta: "#FF9800",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xs: "4px",
+              "margin-desktop": "64px",
+              "margin-mobile": "16px",
+              lg: "48px",
+              gutter: "24px",
+              sm: "12px",
+              base: "8px",
+              md: "24px",
+              xl: "80px",
+            },
+            fontFamily: {
+              "headline-sm": ["Montserrat"],
+              "display-lg-mobile": ["Montserrat"],
+              "display-lg": ["Montserrat"],
+              "body-md": ["Inter"],
+              caption: ["Inter"],
+              "body-lg": ["Inter"],
+              "headline-md": ["Montserrat"],
+              "label-md": ["Inter"],
+              headline: ["Inter"],
+              display: ["Inter"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "headline-sm": ["24px", { lineHeight: "1.4", fontWeight: "600" }],
+              "display-lg-mobile": [
+                "32px",
+                { lineHeight: "1.2", fontWeight: "700" },
+              ],
+              "display-lg": [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              caption: ["12px", { lineHeight: "1.4", fontWeight: "400" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "600" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.05em",
+                  fontWeight: "600",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .fade-in-section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.6s ease-out,
+          transform 0.6s ease-out;
+      }
+      .fade-in-section.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, minmax(200px, auto));
+        gap: 24px;
+      }
+    </style>
+  </head>
+  <body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+    <!-- Header / Navigation Shell -->
+    <header
+      class="bg-surface dark:bg-surface-dim fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline flat no shadows h-20 flex justify-between items-center px-margin-mobile md:px-margin-desktop"
+      id="top-nav"
+    >
+      <div
+        class="max-w-[1280px] mx-auto w-full flex justify-between items-center h-full"
+      >
+        <a href="index.html">
+          <img
+            class="h-24 w-auto object-contain"
+            src="img/iconNex-removebg-preview.png"
+            alt="nexdrones"
+          />
+        </a>
+        <nav class="hidden lg:flex items-center gap-base">
+          <a
+            class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed hover:opacity-80 transition-opacity duration-200 cursor-pointer transition-all active:scale-95 px-4"
+            href="index.html"
+            >Home</a
+          >
+          <a
+            class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed hover:opacity-80 transition-opacity duration-200 cursor-pointer transition-all active:scale-95 px-4"
+            href="#solucoes"
+            >Soluções</a
+          >
+          <a
+            class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed hover:opacity-80 transition-opacity duration-200 cursor-pointer transition-all active:scale-95 px-4"
+            href="/drones.html"
+            >Drones</a
+          >
+          <a
+            class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed hover:opacity-80 transition-opacity duration-200 cursor-pointer transition-all active:scale-95 px-4"
+            href="#portfolio"
+            >Portfólio</a
+          >
+          <a
+            class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed hover:opacity-80 transition-opacity duration-200 cursor-pointer transition-all active:scale-95 px-4"
+            href="#suporte"
+            >Suporte</a
+          >
+          <a
+            class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed hover:opacity-80 transition-opacity duration-200 cursor-pointer transition-all active:scale-95 px-4"
+            href="#contato"
+            >Contato</a
+          >
+        </nav>
+        <button
+          class="bg-primary text-on-primary font-label-md text-label-md px-md py-3 rounded-full hover:opacity-90 transition-all active:scale-95"
+        >
+          Ver orçamento
+        </button>
+        <button class="lg:hidden text-primary" onclick="toggleMenu()">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </header>
+    <!-- Mobile Menu Overlay -->
+    <div
+      class="fixed inset-0 bg-surface z-[60] translate-x-full transition-transform duration-300 lg:hidden p-8"
+      id="mobile-menu"
+    >
+      <div class="flex justify-between items-center mb-12">
+        <span class="font-headline-sm text-headline-sm font-bold text-primary"
+          >Aero-Agro</span
+        >
+        <button onclick="toggleMenu()">
+          <span class="material-symbols-outlined text-3xl">close</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-6">
+        <a
+          class="font-headline-sm text-headline-sm text-primary"
+          href="#home"
+          onclick="toggleMenu()"
+          >Home</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="#solucoes"
+          onclick="toggleMenu()"
+          >Soluções</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="#drones"
+          onclick="toggleMenu()"
+          >Drones</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="#portfolio"
+          onclick="toggleMenu()"
+          >Portfólio</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="#suporte"
+          onclick="toggleMenu()"
+          >Suporte</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="#contato"
+          onclick="toggleMenu()"
+          >Contato</a
+        >
+      </nav>
+    </div>
+    <!-- Hero Section -->
+    <section
+      class="relative h-screen min-h-[700px] flex items-center overflow-hidden bg-[#121212] pt-20"
+      id="home"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          alt="Drone no campo"
+          class="w-full h-full object-cover opacity-50"
+          data-alt="A high-tech industrial agricultural drone hovering precisely over a vast, lush green soybean field during the golden hour. The sunlight creates a warm glow on the horizon, while the drone's sleek dark chassis reflects the fading light. The atmosphere is professional and innovative, utilizing a deep green and corporate black color palette to emphasize precision aerospace technology in a rugged outdoor setting."
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGeftXWN7KXWQlqko0LbDO6C68ELhY2Dxi__klG8GK69CYuahIdZE8ueZsCwcQQZPJEmlIvAuyCEbKuDlgi43srevM5v32ijjZUGHZTl-lgIATaGHrfS2HxssD3oqY_xQvvS7goZcPTz6CsWBJ7s5g36JkC-p6VSrm78zQUIx0RMJbr_T0QrB59Zj6T2kVowD8TJtCWVTAg8mFRocQUm_AC5e9O4RxdN4iDC4DKgMukG-ppztgSStbMRXcQJvTdXt5TQvrpb5xAQg"
+        />
+      </div>
+      <div class="container mx-auto px-margin-mobile md:px-margin-desktop z-10">
+        <div class="max-w-3xl">
+          <h1
+            class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-6"
+          >
+            Tecnologia aérea inteligente para o agronegócio.
+          </h1>
+          <p class="font-body-lg text-body-lg text-gray-300 mb-xl max-w-xl">
+            Mais do que drones, entregamos soluções inteligentes que otimizam
+            sua produção, reduzem custos e elevam a precisão do campo ao próximo
+            nível.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-md">
+            <button
+              class="bg-cta text-[#121212] font-label-md text-label-md px-xl py-5 rounded-full hover:brightness-110 transition-all active:scale-95"
+            >
+              Conheça as Soluções
+            </button>
+            <button
+              class="border-2 border-white text-white font-label-md text-label-md px-xl py-5 rounded-full hover:bg-white hover:text-[#121212] transition-all active:scale-95"
+            >
+              Fale com um Especialista
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Solutions Bento Grid -->
+    <section class="py-xl bg-surface" id="solucoes">
+      <div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="text-center mb-xl">
+          <span
+            class="text-secondary font-label-md text-label-md uppercase tracking-widest mb-4 block"
+            >Nossos Serviços</span
+          >
+          <h2 class="font-headline-md text-headline-md text-primary">
+            Soluções de Alta Precisão
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+          <!-- Large Card -->
+          <div
+            class="md:col-span-8 group relative overflow-hidden rounded-xl bg-white border border-outline-variant h-[400px] fade-in-section"
+          >
+            <img
+              alt="Pulverização"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              data-alt="An advanced agricultural spraying drone in mid-operation, dispersing a fine mist over a perfectly aligned plantation. The lighting is crisp morning sun, highlighting the technical precision of the spray nozzles and the vibrant green of the crops. The style is ultra-modern and corporate, emphasizing efficient field operations and technical superiority in an agricultural context."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuABH9DBMuLEakyHX9FvEG9iYDeHIlcBVt9qn3O9I_mkgNCHOQaX8G8sdV5fMZhXsxBbTA8vzRvhMYpY8PbTewE57ULCJIjUkBTNrBVYnArvhoSNj15TnQOypg_ZqhPWDh92P_bGFiVrPDF8geZIL-EQOiJzW6_CxDy7ezmxawCqGVHGzOxwxc2qhe8u2rWJOZzo2urb72bXtwodORZKJzT1havx4gX0t4JVj8YSviymDYHb0dGmvvqUztWAgbFBufVz5Hp_1fKMfi4"
+            />
+
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 p-lg">
+              <h3 class="font-headline-sm text-headline-sm text-white mb-2">
+                Pulverização Agrícola
+              </h3>
+              <p class="text-white/80 max-w-md">
+                Otimize a aplicação de insumos com precisão centimétrica e
+                redução de desperdício.
+              </p>
+            </div>
+          </div>
+          <!-- Small Card -->
+          <div
+            class="md:col-span-4 group relative overflow-hidden rounded-xl bg-white border border-outline-variant h-[400px] fade-in-section"
+          >
+            <img
+              alt="Mapeamento"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              data-alt="A professional technician analyzing a high-resolution 3D topographical map on a tablet, generated by aerial drone surveillance. The scene is set in a modern field office with technical equipment. The lighting is clean and professional, focusing on the data-rich interface and the precision of the aerial mapping technology. Colors are dominated by tech-greens and clean whites."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxDiT3duE_ifkBwxobqK9dTeOTLlo7V4RHjv2Cw7Tksw1grP7qzOy16650xJvGf7ibJKHzv5cBt5m-kxBYwX3mjC3pvmgkYZgrBCBzbGHPJ5Rd7NnVb2p1qL0GsFmpLOM0uH59fI6DZ5jGJ2I8c1jz_K1_2PBdLqPHzc6fylcviUVlrRPOsaShv-0SDWF4GlFK7RuAVNNsp3kb2JcVlZRzJH7PYr8lTdAklT-BkeM-05Y1YLtQvrbwfxWRucXkxw_nIxtm6_DaeNs"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 p-lg">
+              <h3 class="font-headline-sm text-headline-sm text-white mb-2">
+                Mapeamento Aéreo
+              </h3>
+              <p class="text-white/80">
+                Geração de mapas NDVI e ortomosaicos para gestão estratégica da
+                safra.
+              </p>
+            </div>
+          </div>
+          <!-- Row 2 -->
+          <div
+            class="md:col-span-4 group relative overflow-hidden rounded-xl bg-white border border-outline-variant h-[400px] fade-in-section"
+          >
+            <img
+              alt="Monitoramento"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              data-alt="A multi-spectral drone camera lens capturing detailed imagery of crop health. The shot is a close-up, emphasizing the high-tech sensors and engineering. The environment is a bright, clear day over a farm, suggesting constant and reliable monitoring. The aesthetic is clean, clinical, and technologically advanced, using a palette of white, silver, and primary green."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgb460HzQsdpXPY9cT8zB9Jjd8StqWSz0RL6owKjOPBzhluDOZKSdxOz5O70v9BvPV-DcpVo6-0Z7Mcx6WW8O3FhOIVwFdwFA9yov_15Yx2J0fzvU741SEGCmE6rbPpSQ1XCF1go6Uzm3FXRB79ci5vkbA1M7yQFGev8rfk5ZajMmxGi2k833vL5dS1jcApeMFxxGbYwEeYEHQdIHel30UeZKBjQBl4XNUXsJp7xjkIkrYi5-YIUSfX7SFZ9-9rpp9hrfi6-K-8h4"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 p-lg">
+              <h3 class="font-headline-sm text-headline-sm text-white mb-2">
+                Monitoramento
+              </h3>
+              <p class="text-white/80">
+                Identificação precoce de pragas e falhas de plantio via sensores
+                inteligentes.
+              </p>
+            </div>
+          </div>
+          <div
+            class="md:col-span-8 group relative overflow-hidden rounded-xl bg-white border border-outline-variant h-[400px] fade-in-section"
+          >
+            <img
+              alt="Filmagem"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              data-alt="A high-end cinematic drone capturing a stunning sunset over a luxury event or estate. The lighting is dramatic and artistic, with long shadows and golden hues. The drone itself is sleek and elegant, representing the consumer line for film and events. The mood is sophisticated and aspirational, showcasing the versatility of aerial technology beyond agriculture."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS1vj_wmX4FxVC3a1hQI_Iw03fKiY7mZGh5PESJCP98sARdn754Y0D-7_d9rpt6E6683pkH495ofLTd9dNfe7HB2GHuvsAD5hIeZcmVpxhtvoSIRd6WSVD5raXpY3S8kYP_w_-ER5CHpOjcwtLDlPJbHHTPi0LiavqkQVF607VnY7mLQfhqHPZjKatSnAeqqXf5M1bCu_onNwGMqjWRkPpEO7bS8yWPP5Ytf-28LzWD6wA8jaV3g9Gjntxw9-8LOz0eOeoX1NUqDM"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 p-lg">
+              <h3 class="font-headline-sm text-headline-sm text-white mb-2">
+                Filmagem e Eventos
+              </h3>
+              <p class="text-white/80">
+                Captura de imagens cinematográficas em 4K para eventos e
+                produções institucionais.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Differentials Section -->
+    <section class="py-xl bg-surface-container-low">
+      <div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+          <div
+            class="fade-in-section p-md bg-white rounded-lg border border-outline-variant shadow-sm hover:shadow-md transition-shadow"
+          >
+            <span class="material-symbols-outlined text-4xl text-secondary mb-4"
+              >engineering</span
+            >
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-2">
+              Equipe Especializada
+            </h4>
+            <p class="text-on-surface-variant">
+              Pilotos e engenheiros agrônomos certificados para garantir o
+              melhor resultado.
+            </p>
+          </div>
+          <div
+            class="fade-in-section p-md bg-white rounded-lg border border-outline-variant shadow-sm hover:shadow-md transition-shadow"
+          >
+            <span class="material-symbols-outlined text-4xl text-secondary mb-4"
+              >memory</span
+            >
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-2">
+              Tecnologia de Ponta
+            </h4>
+            <p class="text-on-surface-variant">
+              Equipamentos de última geração com os sensores mais precisos do
+              mercado.
+            </p>
+          </div>
+          <div
+            class="fade-in-section p-md bg-white rounded-lg border border-outline-variant shadow-sm hover:shadow-md transition-shadow"
+          >
+            <span class="material-symbols-outlined text-4xl text-secondary mb-4"
+              >support_agent</span
+            >
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-2">
+              Suporte Nacional
+            </h4>
+            <p class="text-on-surface-variant">
+              Assistência técnica ágil e peças de reposição sempre à disposição.
+            </p>
+          </div>
+          <div
+            class="fade-in-section p-md bg-white rounded-lg border border-outline-variant shadow-sm hover:shadow-md transition-shadow"
+          >
+            <span class="material-symbols-outlined text-4xl text-secondary mb-4"
+              >bolt</span
+            >
+            <h4 class="font-headline-sm text-headline-sm text-primary mb-2">
+              Agilidade
+            </h4>
+            <p class="text-on-surface-variant">
+              Processamento rápido de dados para tomada de decisão em tempo
+              real.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Filterable Product Catalog -->
+    <section class="py-xl bg-surface" id="drones">
+      <div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+        <div
+          class="flex flex-col md:flex-row justify-between items-end mb-xl gap-md"
+        >
+          <div>
+            <span
+              class="text-secondary font-label-md text-label-md uppercase tracking-widest mb-4 block"
+              >Catálogo</span
+            >
+            <h2 class="font-headline-md text-headline-md text-primary">
+              Nossos Equipamentos
+            </h2>
+          </div>
+          <div
+            class="flex gap-sm bg-surface-variant p-1 rounded-full overflow-x-auto whitespace-nowrap"
+          >
+            <button
+              class="filter-btn active bg-primary text-on-primary font-label-md text-label-md px-md py-2 rounded-full transition-colors"
+              onclick="filterProducts('all')"
+            >
+              Todos
+            </button>
+            <button
+              class="filter-btn text-on-surface-variant font-label-md text-label-md px-md py-2 rounded-full hover:bg-white transition-colors"
+              onclick="filterProducts('agro')"
+            >
+              Linha Agro
+            </button>
+            <button
+              class="filter-btn text-on-surface-variant font-label-md text-label-md px-md py-2 rounded-full hover:bg-white transition-colors"
+              onclick="filterProducts('consumer')"
+            >
+              Linha Consumer
+            </button>
+            <button
+              class="filter-btn text-on-surface-variant font-label-md text-label-md px-md py-2 rounded-full hover:bg-white transition-colors"
+              onclick="filterProducts('parts')"
+            >
+              Peças
+            </button>
+          </div>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter"
+          id="product-grid"
+        >
+          <!-- Drone 1 -->
+          <div
+            class="product-card agro bg-white border border-outline-variant rounded-xl overflow-hidden fade-in-section"
+          >
+            <div class="h-48 overflow-hidden bg-surface-container">
+              <img
+                alt="Drone Agrícola"
+                class="w-full h-full object-cover"
+                src="img/Screenshot_6.png"
+              />
+            </div>
+            <div class="p-md">
+              <span
+                class="text-secondary-fixed-dim text-xs font-bold uppercase mb-2 block"
+                >Agro</span
+              >
+              <h5
+                class="font-headline-sm text-headline-sm text-primary text-lg mb-2"
+              >
+                Aero-T1000 Pro
+              </h5>
+              <p class="text-on-surface-variant text-sm mb-4">
+                Capacidade de 30L e sensores multiespectrais integrados.
+              </p>
+              <button
+                class="w-full border border-primary text-primary font-label-md text-label-md py-2 rounded-full hover:bg-primary hover:text-white transition-colors"
+              >
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+          <!-- Drone 2 -->
+          <div
+            class="product-card consumer bg-white border border-outline-variant rounded-xl overflow-hidden fade-in-section"
+          >
+            <div class="h-48 overflow-hidden bg-surface-container">
+              <img
+                alt="Drone 4K"
+                class="w-full h-full object-cover"
+                src="img/Screenshot_4.png"
+              />
+            </div>
+            <div class="p-md">
+              <span
+                class="text-tertiary-fixed-dim text-xs font-bold uppercase mb-2 block"
+                >Consumer</span
+              >
+              <h5
+                class="font-headline-sm text-headline-sm text-primary text-lg mb-2"
+              >
+                Vista 4K Cinematic
+              </h5>
+              <p class="text-on-surface-variant text-sm mb-4">
+                Imagens ultra-nítidas com gimbal estabilizador de 3 eixos.
+              </p>
+              <button
+                class="w-full border border-primary text-primary font-label-md text-label-md py-2 rounded-full hover:bg-primary hover:text-white transition-colors"
+              >
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+          <!-- Drone 3 -->
+          <div
+            class="product-card parts bg-white border border-outline-variant rounded-xl overflow-hidden fade-in-section"
+          >
+            <div class="h-48 overflow-hidden bg-surface-container">
+              <img
+                alt="Baterias"
+                class="w-full h-full object-cover"
+                src="img/Screenshot_5.png"
+              />
+            </div>
+            <div class="p-md">
+              <span class="text-outline text-xs font-bold uppercase mb-2 block"
+                >Peças</span
+              >
+              <h5
+                class="font-headline-sm text-headline-sm text-primary text-lg mb-2"
+              >
+                Baterias Inteligentes
+              </h5>
+              <p class="text-on-surface-variant text-sm mb-4">
+                Autonomia estendida e carregamento rápido para drones agro.
+              </p>
+              <button
+                class="w-full border border-primary text-primary font-label-md text-label-md py-2 rounded-full hover:bg-primary hover:text-white transition-colors"
+              >
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+          <!-- Drone 4 -->
+          <div
+            class="product-card parts bg-white border border-outline-variant rounded-xl overflow-hidden fade-in-section"
+          >
+            <div class="h-48 overflow-hidden bg-surface-container">
+              <img
+                alt="Peças"
+                class="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa_SkdEQ5EgCc60FiXxmk9e7jKDHW7h8fpRJX1oIA5f_SQ7nEXKzHh43Y_fDSnHVgOLbW5o7kDdq36BpV6EgZPhBIceCZTKT_n9Ax9mzph925AUKUu5fkiuoXGJvc7kdd42jK_ugqzTm4AnPFhRhqhvd8szczr_ZK3z6ehHfP5tHiaaxmje4L48foB5yTIt2YYlOzbJjeo7iyUr2YFOHjaaxrfEk3B5vwej5EVU5wy7ByuOHfYAZzTYdi4HYQ9ttwLZRLfq8USdEE"
+              />
+            </div>
+            <div class="p-md">
+              <span class="text-outline text-xs font-bold uppercase mb-2 block"
+                >Peças</span
+              >
+              <h5
+                class="font-headline-sm text-headline-sm text-primary text-lg mb-2"
+              >
+                Hélices Homologadas
+              </h5>
+              <p class="text-on-surface-variant text-sm mb-4">
+                Componentes originais para máxima segurança de voo.
+              </p>
+              <button
+                class="w-full border border-primary text-primary font-label-md text-label-md py-2 rounded-full hover:bg-primary hover:text-white transition-colors"
+              >
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Results Counters -->
+    <section class="py-xl bg-primary text-on-primary">
+      <div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-xl text-center">
+          <div class="counter-item">
+            <span
+              class="font-display-lg text-display-lg block text-secondary-container mb-2"
+              data-target="500000"
+              >0</span
+            >
+            <p class="font-headline-sm text-headline-sm">Hectares Atendidos</p>
+          </div>
+          <div class="counter-item">
+            <span
+              class="font-display-lg text-display-lg block text-secondary-container mb-2"
+              data-target="30"
+              >0</span
+            >
+            <p class="font-headline-sm text-headline-sm">
+              % Redução de Desperdício
+            </p>
+          </div>
+          <div class="counter-item">
+            <span
+              class="font-display-lg text-display-lg block text-secondary-container mb-2"
+              data-target="1200"
+              >0</span
+            >
+            <p class="font-headline-sm text-headline-sm">
+              Produtores Satisfeitos
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials -->
+    <section class="py-xl bg-surface-container-highest" id="portfolio">
+      <div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+        <h2
+          class="font-headline-md text-headline-md text-primary text-center mb-xl"
+        >
+          O que dizem os produtores
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+          <div class="bg-white p-lg rounded-xl shadow-sm fade-in-section">
+            <div class="flex text-secondary mb-4">
+              <span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span>
+            </div>
+            <p class="italic text-on-surface-variant mb-6">
+              "O mapeamento da Aero-Agro mudou nossa forma de ver a fazenda.
+              Identificamos falhas que antes eram invisíveis aos olhos."
+            </p>
+            <div class="flex items-center gap-md">
+              <div
+                class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold"
+              >
+                RM
+              </div>
+              <div>
+                <p class="font-bold text-primary">Ricardo Mendes</p>
+                <p class="text-xs text-on-surface-variant">
+                  Fazenda Sol Nascente - MT
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-lg rounded-xl shadow-sm fade-in-section">
+            <div class="flex text-secondary mb-4">
+              <span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span>
+            </div>
+            <p class="italic text-on-surface-variant mb-6">
+              "A agilidade no suporte técnico é o grande diferencial. Quando
+              precisamos de peças, fomos atendidos no mesmo dia."
+            </p>
+            <div class="flex items-center gap-md">
+              <div
+                class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold"
+              >
+                AL
+              </div>
+              <div>
+                <p class="font-bold text-primary">Ana Lucia Oliveira</p>
+                <p class="text-xs text-on-surface-variant">AgroSempre - GO</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-lg rounded-xl shadow-sm fade-in-section">
+            <div class="flex text-secondary mb-4">
+              <span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span
+              ><span class="material-symbols-outlined">star</span>
+            </div>
+            <p class="italic text-on-surface-variant mb-6">
+              "A pulverização por drone reduziu nosso gasto com defensivos em
+              quase 25%. Investimento que se paga rapidamente."
+            </p>
+            <div class="flex items-center gap-md">
+              <div
+                class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold"
+              >
+                JS
+              </div>
+              <div>
+                <p class="font-bold text-primary">João Silva</p>
+                <p class="text-xs text-on-surface-variant">
+                  Produtor Rural - PR
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Final CTA & Footer -->
+    <section
+      class="relative py-xl bg-primary text-on-primary overflow-hidden"
+      id="contato"
+    >
+      <div
+        class="container mx-auto px-margin-mobile md:px-margin-desktop text-center relative z-10"
+      >
+        <h2
+          class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6"
+        >
+          Pronto para voar mais alto?
+        </h2>
+        <p class="font-body-lg text-body-lg mb-xl opacity-90 max-w-2xl mx-auto">
+          Solicite uma demonstração gratuita em sua propriedade e descubra o
+          poder da precisão aérea.
+        </p>
+        <a
+          class="inline-flex items-center gap-base bg-cta text-[#121212] font-headline-sm text-headline-sm px-xl py-6 rounded-full hover:scale-105 transition-transform"
+          href="https://wa.me/5500000000000"
+        >
+          <span class="material-symbols-outlined">chat</span>
+          Fale no WhatsApp
+        </a>
+      </div>
+      <!-- Decorative bg -->
+      <div
+        class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -mr-48 -mt-48"
+      ></div>
+    </section>
+    <footer
+      class="bg-primary dark:bg-on-primary-fixed text-on-primary dark:text-on-primary-fixed-variant py-xl px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter border-t border-primary-container"
+    >
+      <div>
+        <div class="font-headline-sm text-headline-sm text-on-primary mb-6">
+          Aero-Agro
+        </div>
+        <p class="font-body-md text-body-md opacity-80 mb-6">
+          Transformando o agronegócio através da precisão aeroespacial e análise
+          de dados inteligente.
+        </p>
+        <div class="flex gap-md">
+          <span
+            class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed"
+            >public</span
+          >
+          <span
+            class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed"
+            >smartphone</span
+          >
+          <span
+            class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed"
+            >share</span
+          >
+        </div>
+      </div>
+      <div>
+        <h6 class="font-label-md text-label-md uppercase tracking-widest mb-6">
+          Links Rápidos
+        </h6>
+        <ul class="flex flex-col gap-4 font-body-md text-body-md">
+          <li>
+            <a
+              class="opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-colors"
+              href="#"
+              >Sobre Nós</a
+            >
+          </li>
+          <li>
+            <a
+              class="opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-colors"
+              href="#"
+              >Soluções Agro</a
+            >
+          </li>
+          <li>
+            <a
+              class="opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-colors"
+              href="#"
+              >Carreiras</a
+            >
+          </li>
+          <li>
+            <a
+              class="opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-colors"
+              href="#"
+              >Blog Tech</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h6 class="font-label-md text-label-md uppercase tracking-widest mb-6">
+          Legal
+        </h6>
+        <ul class="flex flex-col gap-4 font-body-md text-body-md">
+          <li>
+            <a
+              class="opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-colors"
+              href="#"
+              >Privacidade</a
+            >
+          </li>
+          <li>
+            <a
+              class="opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-colors"
+              href="#"
+              >Termos de Uso</a
+            >
+          </li>
+          <li>
+            <a
+              class="opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-colors"
+              href="#"
+              >Cookies</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h6 class="font-label-md text-label-md uppercase tracking-widest mb-6">
+          Localização
+        </h6>
+        <p class="font-body-md text-body-md opacity-80 mb-4">
+          Av. da Tecnologia, 1200 - Distrito Industrial<br />Ribeirão Preto, SP
+        </p>
+        <p class="font-body-md text-body-md opacity-80">
+          © 2024 Aero-Agro Precision. All rights reserved.
+        </p>
+      </div>
+    </footer>
+    <script>
+      // Mobile Menu Toggle
+      function toggleMenu() {
+        const menu = document.getElementById("mobile-menu");
+        menu.classList.toggle("translate-x-full");
+      }
+
+      // Product Filtering
+      function filterProducts(category) {
+        const cards = document.querySelectorAll(".product-card");
+        const btns = document.querySelectorAll(".filter-btn");
+
+        btns.forEach((btn) => {
+          btn.classList.remove("bg-primary", "text-on-primary");
+          btn.classList.add("text-on-surface-variant");
+        });
+        event.currentTarget.classList.add("bg-primary", "text-on-primary");
+        event.currentTarget.classList.remove("text-on-surface-variant");
+
+        cards.forEach((card) => {
+          card.style.display = "none";
+          if (category === "all" || card.classList.contains(category)) {
+            card.style.display = "block";
+          }
+        });
+      }
+
+      // Scroll Animations (Intersection Observer)
+      const observerOptions = {
+        threshold: 0.1,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            // If it's a counter, trigger it
+            if (entry.target.querySelector("[data-target]")) {
+              startCounters(entry.target);
+            }
+          }
+        });
+      }, observerOptions);
+
+      document
+        .querySelectorAll(".fade-in-section, .counter-item")
+        .forEach((el) => observer.observe(el));
+
+      // Counter Animation
+      function startCounters(container) {
+        const counters = container.querySelectorAll("[data-target]");
+        counters.forEach((counter) => {
+          const target = +counter.getAttribute("data-target");
+          const count = +counter.innerText;
+          const speed = 200; // Adjust as needed
+          const inc = target / speed;
+
+          const updateCount = () => {
+            const current = +counter.innerText.replace(/[^\d]/g, "");
+            if (current < target) {
+              const nextVal = Math.ceil(current + inc);
+              counter.innerText =
+                nextVal >= target
+                  ? target % 1 === 0
+                    ? target.toLocaleString()
+                    : target
+                  : nextVal.toLocaleString();
+              if (target === 30 && nextVal >= target) counter.innerText = "30";
+              setTimeout(updateCount, 1);
+            }
+          };
+          updateCount();
+        });
+      }
+
+      // Header scroll effect
+      window.addEventListener("scroll", () => {
+        const header = document.getElementById("top-nav");
+        if (window.scrollY > 50) {
+          header.classList.add("shadow-md", "bg-opacity-95");
+        } else {
+          header.classList.remove("shadow-md", "bg-opacity-95");
+        }
+      });
+    </script>
+  </body>
+</html>
