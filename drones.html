@@ -1,73 +1,79 @@
 <!doctype html>
-
-<html class="light" lang="pt-BR">
+<html class="scroll-smooth" lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>NexDrones | Tecnologia Aérea Inteligente</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
       rel="stylesheet"
     />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "secondary-fixed": "#acedfb",
               surface: "#faf8ff",
-              "on-surface-variant": "#414753",
-              secondary: "#206773",
-              "tertiary-fixed": "#8ef4eb",
-              "on-background": "#02174b",
-              "surface-container": "#ebedff",
+              outline: "#717785",
+              "surface-variant": "#dce1ff",
+              "on-tertiary-fixed": "#00201e",
+              "on-secondary-container": "#266b78",
               "on-tertiary-container": "#f3fffd",
+              "surface-container-high": "#e3e7ff",
+              "surface-container": "#ebedff",
+              "tertiary-container": "#00837c",
+              "primary-fixed": "#d1e4ff",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-highest": "#dce1ff",
+              "on-surface-variant": "#414753",
+              "on-primary-fixed": "#001d36",
+              "secondary-fixed-dim": "#90d1df",
+              "on-error": "#ffffff",
               "on-secondary": "#ffffff",
               "on-error-container": "#93000a",
-              "on-secondary-fixed-variant": "#004e59",
-              "on-primary-container": "#fdfcff",
-              outline: "#717785",
-              primary: "#155f9c",
-              "secondary-container": "#a9eaf8",
-              "outline-variant": "#c1c6d5",
-              "secondary-fixed-dim": "#90d1df",
-              tertiary: "#006762",
-              "primary-container": "#3978b6",
-              "secondary-fixed": "#acedfb",
-              "surface-container-highest": "#dce1ff",
-              "on-tertiary-fixed-variant": "#00504b",
-              "primary-fixed-dim": "#9fcaff",
-              "on-tertiary-fixed": "#00201e",
-              "surface-container-high": "#e3e7ff",
-              "surface-tint": "#1a619e",
-              "inverse-surface": "#1c2d61",
-              "inverse-on-surface": "#eff0ff",
-              "surface-variant": "#dce1ff",
-              "on-secondary-fixed": "#001f25",
-              "on-primary-fixed-variant": "#00497d",
-              "on-primary": "#ffffff",
-              "surface-container-lowest": "#ffffff",
-              error: "#ba1a1a",
-              "surface-bright": "#faf8ff",
-              "on-secondary-container": "#266b78",
-              "on-error": "#ffffff",
-              "on-tertiary": "#ffffff",
               "on-surface": "#02174b",
-              "surface-container-low": "#f3f2ff",
-              "inverse-primary": "#9fcaff",
-              "primary-fixed": "#d1e4ff",
+              "on-primary-container": "#fdfcff",
               "error-container": "#ffdad6",
-              "tertiary-container": "#00837c",
-              "surface-dim": "#d0d8ff",
-              "tertiary-fixed-dim": "#71d7cf",
-              "on-primary-fixed": "#001d36",
               background: "#faf8ff",
-              // Custom Brand Colors
+              "on-primary-fixed-variant": "#00497d",
+              "surface-bright": "#faf8ff",
+              secondary: "#206773",
+              "on-tertiary-fixed-variant": "#00504b",
+              "outline-variant": "#c1c6d5",
+              "surface-tint": "#1a619e",
+              "tertiary-fixed-dim": "#71d7cf",
+              "primary-container": "#3978b6",
+              "on-tertiary": "#ffffff",
+              tertiary: "#006762",
+              primary: "#155f9c",
+              "inverse-on-surface": "#eff0ff",
+              "tertiary-fixed": "#8ef4eb",
+              "primary-fixed-dim": "#9fcaff",
+              "surface-container-low": "#f3f2ff",
+              "secondary-container": "#a9eaf8",
+              "on-secondary-fixed": "#001f25",
+              "surface-dim": "#d0d8ff",
+              "on-secondary-fixed-variant": "#004e59",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#1c2d61",
+              error: "#ba1a1a",
+              "on-background": "#02174b",
+              "inverse-primary": "#9fcaff",
+              cta: "#FF9800",
+              // Cores extras da página 2 injetadas aqui por segurança
               "brand-deep-green": "#1F5E3B",
               "brand-safety-orange": "#FF9800",
               "brand-light-green": "#4CAF50",
@@ -79,14 +85,63 @@
               "2xl": "1rem",
               full: "9999px",
             },
+            spacing: {
+              xs: "4px",
+              "margin-desktop": "64px",
+              "margin-mobile": "16px",
+              lg: "48px",
+              gutter: "24px",
+              sm: "12px",
+              base: "8px",
+              md: "24px",
+              xl: "80px",
+            },
             fontFamily: {
+              "headline-sm": ["Montserrat"],
+              "display-lg-mobile": ["Montserrat"],
+              "display-lg": ["Montserrat"],
+              "body-md": ["Inter"],
+              caption: ["Inter"],
+              "body-lg": ["Inter"],
+              "headline-md": ["Montserrat"],
+              "label-md": ["Inter"],
               headline: ["Montserrat", "Inter", "sans-serif"],
+              display: ["Inter"],
               body: ["Inter", "sans-serif"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "headline-sm": ["24px", { lineHeight: "1.4", fontWeight: "600" }],
+              "display-lg-mobile": [
+                "32px",
+                { lineHeight: "1.2", fontWeight: "700" },
+              ],
+              "display-lg": [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              caption: ["12px", { lineHeight: "1.4", fontWeight: "400" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "600" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.05em",
+                  fontWeight: "600",
+                },
+              ],
             },
           },
         },
       };
     </script>
+
     <style>
       .material-symbols-outlined {
         font-variation-settings:
@@ -94,6 +149,23 @@
           "wght" 400,
           "GRAD" 0,
           "opsz" 24;
+      }
+      .fade-in-section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.6s ease-out,
+          transform 0.6s ease-out;
+      }
+      .fade-in-section.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, minmax(200px, auto));
+        gap: 24px;
       }
       .glass-card {
         background: rgba(255, 255, 255, 0.8);
@@ -110,7 +182,59 @@
       }
     </style>
   </head>
-  <body class="bg-surface font-body text-on-surface">
+  <body class="bg-surface font-body text-on-surface transform: scale(0.8);">
+    <!-- Mobile Menu Overlay -->
+    <div
+      class="fixed inset-0 bg-surface z-[60] translate-x-full transition-transform duration-300 lg:hidden p-8"
+      id="mobile-menu"
+    >
+      <div class="flex justify-between items-center mb-12">
+        <span class="font-headline-sm text-headline-sm font-bold text-primary"
+          >NexDrones</span
+        >
+        <button onclick="toggleMenu()">
+          <span class="material-symbols-outlined text-3xl">close</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-6">
+        <a
+          class="font-headline-sm text-headline-sm text-primary"
+          href="#home"
+          onclick="toggleMenu()"
+          >Home</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="#solucoes"
+          onclick="toggleMenu()"
+          >Soluções</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="drones.html"
+          onclick="toggleMenu()"
+          >Drones</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="#portfolio"
+          onclick="toggleMenu()"
+          >Portfólio</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="#suporte"
+          onclick="toggleMenu()"
+          >Suporte</a
+        >
+        <a
+          class="font-headline-sm text-headline-sm"
+          href="#contato"
+          onclick="toggleMenu()"
+          >Contato</a
+        >
+      </nav>
+    </div>
     <!-- Top Navigation (Shared Component Integration) -->
     <header
       class="bg-surface dark:bg-surface-dim fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline flat no shadows h-20 flex justify-between items-center px-margin-mobile md:px-margin-desktop"
@@ -183,11 +307,11 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 text-white">
           <div class="max-w-3xl">
             <span
-              class="inline-block px-4 py-1 bg-brand-light-green/20 border border-brand-light-green text-brand-light-green rounded-full text-sm font-bold mb-6 tracking-wide"
+              class="inline-block px-4 py-1 bg-brand-light-green/20 border border-brand-light-green text-brand-light-green rounded-full text-sm font-bold mb-6 tracking-wide mt-9"
               >CENTRO DE OPERAÇÕES</span
             >
             <h1
-              class="text-4xl md:text-6xl font-headline font-extrabold mb-6 leading-tight"
+              class="text-4xl md:text-6xl font-headline font-extrabold mb-6 leading-tight mt-50 text-shadow-lg"
             >
               Guia Técnico e Instruções de Operação
             </h1>
@@ -595,7 +719,7 @@
       >
         <div class="space-y-4">
           <div class="text-lg font-headline font-bold text-on-surface">
-            Aero-Agro Precision
+            NexDrones
           </div>
           <p class="text-sm text-on-surface-variant">
             Liderando a revolução digital na agricultura com drones de alta
@@ -654,11 +778,37 @@
         <p
           class="font-body text-body-medium text-on-surface-variant opacity-70"
         >
-          © 2024 Aero-Agro Precision. All rights reserved.
+          © 2024 NexDrones. All rights reserved.
         </p>
       </div>
     </footer>
     <script>
+      // Mobile Menu Toggle
+      function toggleMenu() {
+        const menu = document.getElementById("mobile-menu");
+        menu.classList.toggle("translate-x-full");
+      }
+
+      // Product Filtering
+      function filterProducts(category) {
+        const cards = document.querySelectorAll(".product-card");
+        const btns = document.querySelectorAll(".filter-btn");
+
+        btns.forEach((btn) => {
+          btn.classList.remove("bg-primary", "text-on-primary");
+          btn.classList.add("text-on-surface-variant");
+        });
+        event.currentTarget.classList.add("bg-primary", "text-on-primary");
+        event.currentTarget.classList.remove("text-on-surface-variant");
+
+        cards.forEach((card) => {
+          card.style.display = "none";
+          if (category === "all" || card.classList.contains(category)) {
+            card.style.display = "block";
+          }
+        });
+      }
+
       function toggleDetails(id) {
         const detailsDiv = document.getElementById(`details-${id}`);
         const icon = document.getElementById(`icon-${id}`);
